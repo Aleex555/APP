@@ -7,7 +7,6 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 
 public class AppSocketsClient extends WebSocketClient {
-
     public AppSocketsClient(URI serverUri) {
             super(serverUri);
         }
@@ -31,4 +30,6 @@ public class AppSocketsClient extends WebSocketClient {
     public void onError(Exception ex) {
 
     }
+
+
 }

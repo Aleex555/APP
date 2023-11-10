@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,14 +49,20 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     String IP=inputIP.getText().toString();
                     validateIPAddress(IP);
-                    Toast.makeText(v.getContext(), "La dirección IP es válida: " + IP, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(v.getContext(), "La dirección IP es válida: " + IP, Toast.LENGTH_SHORT).show();
                     Data.setIP(IP);
+                    /*
+                    Socket socket = new Socket();
+                    socket.connect(new InetSocketAddress(Data.getIP(), Data.getPort()), 5000); // Timeout de 5 segundos
+*/
                     Intent intent = new Intent(MainActivity.this, EnviarActivity.class);
                     startActivity(intent);
                 } catch (IllegalArgumentException ex) {
                     Toast.makeText(v.getContext(), "Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
+                }/*
+                catch (IOException e) {
+                    Toast.makeText(v.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }*/
             }
         });
         //
