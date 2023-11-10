@@ -51,18 +51,37 @@ public class MainActivity extends AppCompatActivity {
                     validateIPAddress(IP);
                     //Toast.makeText(v.getContext(), "La dirección IP es válida: " + IP, Toast.LENGTH_SHORT).show();
                     Data.setIP(IP);
-                    /*
-                    Socket socket = new Socket();
-                    socket.connect(new InetSocketAddress(Data.getIP(), Data.getPort()), 5000); // Timeout de 5 segundos
-*/
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Socket socket = new Socket();
+                                socket.connect(new InetSocketAddress(Data.getIP(), Data.getPort()), 1000); // Timeout de 1 segundo
+                                Thread.sleep(2000);
+
+                                // Si necesitas realizar alguna operación con la respuesta del socket, hazlo aquí
+
+                            } catch (IOException e) {
+                                // Usamos runOnUiThread para mostrar el Toast en el hilo principal
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } catch (InterruptedException e) {
+                                // Manejo de InterruptedException
+                                Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+                            }
+                        }
+                    }).start();
+
+
                     Intent intent = new Intent(MainActivity.this, EnviarActivity.class);
                     startActivity(intent);
                 } catch (IllegalArgumentException ex) {
                     Toast.makeText(v.getContext(), "Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
-                }/*
-                catch (IOException e) {
-                    Toast.makeText(v.getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }*/
+                }
             }
         });
         //
