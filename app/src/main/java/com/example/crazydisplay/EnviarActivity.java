@@ -21,21 +21,32 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 public class EnviarActivity extends AppCompatActivity {
+
 
     private ConnectionStatus connectionStatus = ConnectionStatus.DISCONNECTED;
     public enum ConnectionStatus {
         DISCONNECTED, DISCONNECTING, CONNECTING, CONNECTED
     }
-    private AppSocketsClient client;
+
     private Button enviarButton,historialMissatges;
     private EditText inputMessage;
-    private ListView showClients;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,71 +55,21 @@ public class EnviarActivity extends AppCompatActivity {
         Button enviarButton = findViewById(R.id.enviarButton);
         enviarButton.setBackgroundColor(Color.parseColor("#20b16c"));
         EditText inputMessage= findViewById(R.id.inputMessage);
-        ListView showClients = findViewById(R.id.showClients);
         historialMissatges=findViewById(R.id.historialMissatges);
         //
 
         // Ensure network operations are done on a separate thread to avoid NetworkOnMainThreadException
-        new Thread(new Runnable() {
+
+        runOnUiThread(new Runnable() {
+
             @Override
             public void run() {
-                String clientType = "android_client";
-                try {
-                    URI location = new URI("ws://" + Data.getIP() + ":" + "8888");
-                    location = new URI(location + "/" + clientType);
-                    client = new AppSocketsClient(location, (String message) ->             {
-                        try {
-                            this.onMessage(message);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-                    //serverConnected = true;
-                    client.connect();
-                    Thread.sleep(1000); // Esperar respuesta
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException(e);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                connectionStatus = ConnectionStatus.CONNECTING;
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        EnviarActivity.this,
+                        android.R.layout.simple_list_item_1,
+                        clients);
             }
-            private void onOpen (ServerHandshake handshake) {
-                System.out.println("Handshake: " + handshake.getHttpStatusMessage());
-                connectionStatus = ConnectionStatus.CONNECTED;
-            }
-            private void onMessage(String message) throws JSONException {
-                JSONObject data = new JSONObject(message);
-                String type = data.getString("type");
-
-                switch (type) {
-                    case "list":
-                        ArrayList<String> list = new ArrayList<>();
-                        String jsonlist =data.getString("list");
-                        JSONArray jsonArray = new JSONArray(jsonlist);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            list.add(jsonArray.getString(i));
-                        }
-                        clients=list;
-                        break;
-                    default:
-                        break;
-                }
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                EnviarActivity.this,
-                                android.R.layout.simple_list_item_1,
-                                clients);
-                        showClients.setAdapter(adapter);
-                    }
-                });
-
-                    }
-        }).start();
-
+        });
         //
         enviarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,19 +78,21 @@ public class EnviarActivity extends AppCompatActivity {
                 JSONObject msgJSON=null;
                 Data.userMsgs.add(message);
                 try {
-                     msgJSON = new JSONObject();
+                    msgJSON = new JSONObject();
                     msgJSON.put("type", "broadcast");
+                    msgJSON.put("from", "Android");
                     msgJSON.put("value", message);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
                 //
                 Date ahora = new Date();
-                System.out.println("Fecha y hora actuales: " + ahora);
                 MessageHistory.put(message,ahora.toString());
-                guardarDatos("messageHistory.txt",MessageHistory.toString());
+
+                guardarDatos("messageHistory.txt",Data.convertirHashMapAString(MessageHistory));
                 //
-                client.send(msgJSON.toString());
+                Data.client.send(msgJSON.toString());
+
                 Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,7 +108,7 @@ public class EnviarActivity extends AppCompatActivity {
         });
         //
     }
-    private void guardarDatos(String name,String data) {
+    private void guardarDatos(String name, String data) {
         String dataSave= data;
 
         String filename = name;
@@ -161,5 +124,49 @@ public class EnviarActivity extends AppCompatActivity {
             e.printStackTrace();
             //Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public HashMap<String, String> transformarStringAHashMap(String contenido) {
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        String[] lineas = contenido.split("\n");
+        for (String linea : lineas) {
+            // Divide la línea en clave y valor utilizando el símbolo "=" como separador
+            String[] partes = linea.split("=");
+            if (partes.length == 2) {
+                String clave = partes[0];
+                String valor = partes[1];
+                hashMap.put(clave, valor);
+            }
+        }
+
+        if (hashMap.isEmpty()) {
+            guardarDatos("Error.txt", "El contenido está vacío");
+        }
+
+        return hashMap;
+    }
+
+    public String readArchivetoString(String filePath){
+        StringBuilder content = new StringBuilder();
+        try {
+            FileInputStream fis = openFileInput(filePath);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+
+            br.close();
+            isr.close();
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Manejo de excepciones
+        }
+
+        return content.toString();
     }
 }

@@ -1,21 +1,35 @@
 package com.example.crazydisplay;
 
+import static com.example.crazydisplay.Data.MessageHistory;
+import java.util.Locale;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -29,20 +43,15 @@ public class MissageHistoryActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_message);
-        String hashmapReaded=readArchivetoString("messageHistory.txt");
-
         // Inicialitzem model
         records = new ArrayList<Record>();
-        // Afegim alguns exemples
 
-        HashMap<String, String> MessageHistory=convertStringToHashMap(hashmapReaded);
-
-        for (HashMap.Entry<String, String> entry : MessageHistory.entrySet()) {
+        for (HashMap.Entry<String, String> entry : Data.MessageHistory.entrySet()) {
             Record record =new Record(entry.getKey(),entry.getValue());
             records.add(record);
             // Hacer algo con la clave y el valor
         }
-
+        records=ordenarRecordsPorTiempo(records);
         // Inicialitzem l'ArrayAdapter amb el layout pertinent
         adapter = new ArrayAdapter<Record>(this, R.layout.list_item, records) {
             @Override
@@ -70,13 +79,21 @@ public class MissageHistoryActivity  extends AppCompatActivity {
         ListView lv = findViewById(R.id.recordsView);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Record recordSeleccionado = records.get(position);
+                String mensaje = recordSeleccionado.mensaje;
+                String tiempo = recordSeleccionado.tiempo;
+                mostrarDialogoDeConfirmacion(mensaje);
+            }
+        });
         // botó per afegir entrades a la ListView
         Button b = findViewById(R.id.atras);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Data.client.close();
                 Intent intent = new Intent(MissageHistoryActivity.this, EnviarActivity.class);
                 startActivity(intent);
 
@@ -85,58 +102,52 @@ public class MissageHistoryActivity  extends AppCompatActivity {
 
 
     }
-    public String readArchivetoString(String filePath){
-        StringBuilder content = new StringBuilder();
-        try {
-            FileInputStream fis = openFileInput(filePath);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
+    private void mostrarDialogoDeConfirmacion(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            while ((line = br.readLine()) != null) {
-                content.append(line).append("\n");
-            }
+        builder.setTitle("Confirmació");
+        builder.setMessage("Enviar de nou ?");
 
-            br.close();
-            isr.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Manejo de excepciones
-        }
-
-        return content.toString();
-    }
-
-
-
-
-    public static HashMap<String, String> convertStringToHashMap(String str) {
-        HashMap<String, String> map = new HashMap<>();
-
-        // Verifica si la cadena no está vacía y está entre corchetes
-        if (str != null && str.startsWith("{") && str.endsWith("}")) {
-            // Quita los corchetes de inicio y fin
-            String content = str.substring(1, str.length() - 1);
-
-            // Divide la cadena en pares clave-valor
-            String[] keyValuePairs = content.split(", ");
-
-            // Itera y divide cada par clave-valor
-            for (String pair : keyValuePairs) {
-                String[] entry = pair.split("=", 2);
-                if (entry.length == 2) {
-                    map.put(entry[0].trim(), entry[1].trim());
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                JSONObject msgJSON=null;
+                Data.userMsgs.add(message);
+                try {
+                    msgJSON = new JSONObject();
+                    msgJSON.put("type", "broadcast");
+                    msgJSON.put("from", "Android");
+                    msgJSON.put("value", message);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
                 }
-            }
-        }
+                //
+                Date ahora = new Date();
+                MessageHistory.put(message,ahora.toString());
 
-        return map;
+                guardarDatos("messageHistory.txt",Data.convertirHashMapAString(MessageHistory));
+                //
+                Data.client.send(msgJSON.toString());
+                Toast.makeText(MissageHistoryActivity.this, "Enviat", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Manejar la confirmación negativa aquí
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     class Record {
         public String mensaje;
         public String tiempo;
-
+        public String getTiempo() {
+            return tiempo;
+        }
         public Record(String mensaje, String tiempo) {
             this.mensaje = mensaje;
             this.tiempo = tiempo;
@@ -144,6 +155,53 @@ public class MissageHistoryActivity  extends AppCompatActivity {
 
 
     }
+    public static ArrayList<Record> ordenarRecordsPorTiempo(ArrayList<Record> records) {
+        // Crear un comparador personalizado para ordenar de forma descendente por tiempo
+        Comparator<Record> comparator = new Comparator<Record>() {
+            @Override
+            public int compare(Record record1, Record record2) {
+                try {
+                    // Formato para convertir la cadena de tiempo en un objeto Date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
+                    // Parsear las cadenas de tiempo en objetos Date
+                    Date date1 = dateFormat.parse(record1.getTiempo());
+                    Date date2 = dateFormat.parse(record2.getTiempo());
+
+                    // Comparar los objetos Date en orden descendente
+                    return date2.compareTo(date1);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+        };
+
+        // Clonar el ArrayList original para no modificarlo directamente
+        ArrayList<Record> recordsClonados = new ArrayList<>(records);
+
+        // Ordenar el ArrayList clonado utilizando el comparador
+        Collections.sort(recordsClonados, comparator);
+
+        return recordsClonados;
+    }
 
 
+    private void guardarDatos(String name, String data) {
+        String dataSave= data;
+
+        String filename = name;
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(dataSave.getBytes());
+            outputStream.close();
+            //Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //Toast.makeText(this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

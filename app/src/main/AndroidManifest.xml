@@ -30,6 +30,9 @@
         <activity android:name=".MissageHistoryActivity">
             <!-- Puedes incluir otras configuraciones aquí -->
         </activity>
+        <activity android:name=".LoginActivity">
+            <!-- Puedes incluir otras configuraciones aquí -->
+        </activity>
     </application>
 
 </manifest>

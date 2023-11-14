@@ -1,16 +1,24 @@
 package com.example.crazydisplay;
 
+import android.content.Context;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Data {
     static ArrayList<String> clients=new ArrayList<String>() ;
     static ArrayList<String> userMsgs=new ArrayList<String>() ;
     private static int port=8888;
     private static String IP=null;
-    private static AppSocketsClient client=null;
     static  HashMap<String, String> MessageHistory = new HashMap<>();
-
+    static  AppSocketsClient client;
 
 
 
@@ -29,5 +37,19 @@ public class Data {
     }
     public static int getPort() {
         return port;
+    }
+
+
+
+
+
+
+
+    public static String convertirHashMapAString(Map<String, String> hashMap) {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue()).append("\n");
+        }
+        return sb.toString();
     }
 }

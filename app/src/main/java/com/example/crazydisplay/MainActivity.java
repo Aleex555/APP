@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     }).start();
 
 
-                    Intent intent = new Intent(MainActivity.this, EnviarActivity.class);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } catch (IllegalArgumentException ex) {
                     Toast.makeText(v.getContext(), "Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
