@@ -72,4 +72,17 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <Button
+        android:id="@+id/enviarImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar Image"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/historialMissatges"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enviarButton"
+        app:layout_constraintVertical_bias="0.612" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

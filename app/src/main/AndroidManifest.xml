@@ -33,6 +33,9 @@
         <activity android:name=".LoginActivity">
             <!-- Puedes incluir otras configuraciones aquí -->
         </activity>
+        <activity android:name=".ImageActivity">
+            <!-- Puedes incluir otras configuraciones aquí -->
+        </activity>
     </application>
 
 </manifest>

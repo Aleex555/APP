@@ -45,17 +45,18 @@ public class EnviarActivity extends AppCompatActivity {
         DISCONNECTED, DISCONNECTING, CONNECTING, CONNECTED
     }
 
-    private Button enviarButton,historialMissatges;
+    private Button enviarButton,historialMissatges,enviarImagen;
     private EditText inputMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enviar);
         //
-        Button enviarButton = findViewById(R.id.enviarButton);
+        enviarButton = findViewById(R.id.enviarButton);
         enviarButton.setBackgroundColor(Color.parseColor("#20b16c"));
-        EditText inputMessage= findViewById(R.id.inputMessage);
+        inputMessage= findViewById(R.id.inputMessage);
         historialMissatges=findViewById(R.id.historialMissatges);
+        enviarImagen=findViewById(R.id.enviarImagen);
         //
 
         // Ensure network operations are done on a separate thread to avoid NetworkOnMainThreadException
@@ -104,6 +105,14 @@ public class EnviarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(EnviarActivity.this, MissageHistoryActivity.class);
                 startActivity(intent);
+            }
+        });
+        //
+        enviarImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent saltarEnviarImagen=new Intent(EnviarActivity.this, ImageActivity.class);
+                startActivity(saltarEnviarImagen);
             }
         });
         //
