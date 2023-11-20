@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
@@ -98,7 +100,12 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                Data.client.send(msgJSON.toString());
+                try {
+                    Data.client.send(msgJSON.toString());
+                }catch (Exception e){
+                    Toast.makeText(LoginActivity.this, "Error: No s'ha pogut connectar amb el servidor", Toast.LENGTH_SHORT).show();
+                }
+
 
                 buttonLogin.setText("Connectant...");
                 isButtonClickable = false;

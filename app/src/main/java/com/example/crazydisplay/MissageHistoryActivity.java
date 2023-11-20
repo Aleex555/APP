@@ -127,7 +127,12 @@ public class MissageHistoryActivity  extends AppCompatActivity {
 
                 guardarDatos("messageHistory.txt",Data.convertirHashMapAString(MessageHistory));
                 //
-                Data.client.send(msgJSON.toString());
+                try {
+                    Data.client.send(msgJSON.toString());
+                }catch (Exception e){
+                    Toast.makeText(MissageHistoryActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
+                }
+
                 Toast.makeText(MissageHistoryActivity.this, "Enviat", Toast.LENGTH_SHORT).show();
             }
         });

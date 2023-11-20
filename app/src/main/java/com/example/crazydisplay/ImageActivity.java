@@ -1,6 +1,10 @@
 package com.example.crazydisplay;
 
 import static com.example.crazydisplay.Data.MessageHistory;
+import static com.example.crazydisplay.ImageActivity.mThumbIds;
+
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Base64;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,11 +12,16 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,189 +30,53 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-
 public class ImageActivity extends AppCompatActivity {
-    private Button atras;
-    private ImageView imageView1,imageView2,imageView3,imageView4,imageView5,imageView6,imageView7,imageView8,imageView9;
+    private Button Atras;
+     public static Integer[] mThumbIds = {
+            R.drawable.sample_image, R.drawable.sample_image,
+            R.drawable.abism, R.drawable.street,
+             R.drawable.flowers, R.drawable.gato
+            // ... Add as many images as you have
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_enviar);
-
-        atras= findViewById(R.id.Atras);
-        imageView1 = findViewById(R.id.imageView1);
-        imageView1.setOnClickListener(new View.OnClickListener() {
+        Atras=findViewById(R.id.Atras);
+        GridView gridView = (GridView) findViewById(R.id.galleryGridView);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bitmap bitmap = getBitmapFromDrawable(getResources(), mThumbIds[position]); // Reemplaza con la imagen correcta
+                String base64String = convertToBase64(bitmap);
                 JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
                 try {
                     msgJSON = new JSONObject();
                     msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
+                    msgJSON.put("from", "Android");
+                    msgJSON.put("value", base64String);
+                    msgJSON.put("name", position+"");
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        imageView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
+                //
                 try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    Data.client.send(msgJSON.toString());
+                }catch (Exception e){
+                    Toast.makeText(ImageActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
                 }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("sample_image.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                JSONObject msgJSON=null;
-                String imagenBase64=ImageToBase64("nepe.jpg");
-                try {
-                    msgJSON = new JSONObject();
-                    msgJSON.put("type", "image");
-                    msgJSON.put("value", imagenBase64);
-                    msgJSON.put("name", "sample_image.jpg");
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-                Data.client.send(msgJSON.toString());
-
-                Toast.makeText(v.getContext(), "Correcte", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ImageActivity.this, "Imagen enviado con exito", Toast.LENGTH_SHORT).show();
             }
         });
 
-        atras.setOnClickListener(new View.OnClickListener() {
+        Atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ImageActivity.this, EnviarActivity.class);
                 startActivity(intent);
             }
         });
-        // Repite para imageView2 a imageView9
     }
 
     public static String ImageToBase64(String pathImagen) {
@@ -229,5 +102,54 @@ public class ImageActivity extends AppCompatActivity {
     }
 
 
+    public Bitmap getBitmapFromDrawable(Resources res, int drawableId) {
+        return BitmapFactory.decodeResource(res, drawableId);
+    }
+    public String convertToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        byte[] byteArray = outputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+}
+
+ class ImageAdapter extends BaseAdapter {
+    private Context mContext;
+
+    public ImageAdapter(Context c) {
+        mContext = c;
+    }
+
+    public int getCount() {
+        return mThumbIds.length;
+    }
+
+    public Object getItem(int position) {
+        return null;
+    }
+
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    // create a new ImageView for each item referenced by the Adapter
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ImageView imageView;
+        if (convertView == null) {
+            // if it's not recycled, initialize some attributes
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(8, 8, 8, 8);
+        } else {
+            imageView = (ImageView) convertView;
+        }
+
+        imageView.setImageResource(mThumbIds[position]);
+        return imageView;
+    }
+
+    // references to our images
 
 }

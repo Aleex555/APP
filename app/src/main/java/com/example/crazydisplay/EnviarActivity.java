@@ -55,8 +55,11 @@ public class EnviarActivity extends AppCompatActivity {
         enviarButton = findViewById(R.id.enviarButton);
         enviarButton.setBackgroundColor(Color.parseColor("#20b16c"));
         inputMessage= findViewById(R.id.inputMessage);
+
         historialMissatges=findViewById(R.id.historialMissatges);
+        historialMissatges.setBackgroundColor(Color.parseColor("#ADD8E6"));
         enviarImagen=findViewById(R.id.enviarImagen);
+        enviarImagen.setBackgroundColor(Color.parseColor("#FFB6C1"));
         //
 
         // Ensure network operations are done on a separate thread to avoid NetworkOnMainThreadException
@@ -92,8 +95,12 @@ public class EnviarActivity extends AppCompatActivity {
 
                 guardarDatos("messageHistory.txt",Data.convertirHashMapAString(MessageHistory));
                 //
-                Data.client.send(msgJSON.toString());
-
+                try {
+                    Data.client.send(msgJSON.toString());
+                }catch (Exception e){
+                    Toast.makeText(EnviarActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
+                }
+                inputMessage.setText("");
                 Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });

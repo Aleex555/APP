@@ -62,13 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Si necesitas realizar alguna operación con la respuesta del socket, hazlo aquí
 
                             } catch (IOException e) {
-                                // Usamos runOnUiThread para mostrar el Toast en el hilo principal
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+
                             } catch (InterruptedException e) {
                                 // Manejo de InterruptedException
                                 Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
