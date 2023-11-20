@@ -3,8 +3,10 @@ package com.example.crazydisplay;
 import static com.example.crazydisplay.Data.MessageHistory;
 import static com.example.crazydisplay.ImageActivity.mThumbIds;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.util.Base64;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -34,8 +36,8 @@ public class ImageActivity extends AppCompatActivity {
     private Button Atras;
      public static Integer[] mThumbIds = {
             R.drawable.sample_image, R.drawable.sample_image,
-            R.drawable.abism, R.drawable.street,
-             R.drawable.flowers, R.drawable.gato
+            R.drawable.doly, R.drawable.pinguins   ,
+             R.drawable.duck, R.drawable.gato
             // ... Add as many images as you have
     };
     @Override
@@ -48,6 +50,12 @@ public class ImageActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                gridView.setEnabled(false);
+                Dialog loadingDialog = new Dialog(ImageActivity.this);
+                loadingDialog.setContentView(R.layout.dialog_loading);
+                loadingDialog.setCancelable(false); // Para evitar que se cierre al tocar fuera
+                loadingDialog.show();
+
                 Bitmap bitmap = getBitmapFromDrawable(getResources(), mThumbIds[position]); // Reemplaza con la imagen correcta
                 String base64String = convertToBase64(bitmap);
                 JSONObject msgJSON=null;
@@ -63,10 +71,22 @@ public class ImageActivity extends AppCompatActivity {
                 //
                 try {
                     Data.client.send(msgJSON.toString());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Cerrar el diálogo después de 3 segundos
+                            loadingDialog.dismiss();
+                            gridView.setEnabled(true);
+                            // Aquí puedes continuar con otras operaciones después de los 3 segundos
+                            Toast.makeText(ImageActivity.this, "Imatge enviat amb éxit", Toast.LENGTH_SHORT).show();
+                        }
+                    }, 6000); // 3000 milisegundos = 3 segundos
                 }catch (Exception e){
                     Toast.makeText(ImageActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(ImageActivity.this, "Imagen enviado con exito", Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
 
