@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05f3db6f-2bbb-428c-bb9c-2d1590403271" name="Changes" comment="" />
+    <list default="true" id="05f3db6f-2bbb-428c-bb9c-2d1590403271" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,8 +57,8 @@
     "SHOW_ALL_PROCESSES": "false",
     "cidr.known.project.marker": "true",
     "com.android.tools.idea.devicemanager.tab": "Physical",
-    "last_opened_file_path": "A:/PositionCalculator",
-    "project.structure.last.edited": "Dependencies",
+    "last_opened_file_path": "A:/AMS2/Proyecto/otro/APP",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2"
   }
