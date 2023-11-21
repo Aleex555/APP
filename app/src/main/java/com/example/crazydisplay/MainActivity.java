@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //
         inputIP=findViewById(R.id.inputIP);
         connectarButton=findViewById(R.id.conectButton);
-        connectarButton.setBackgroundColor(Color.parseColor("#20b16c"));
+        connectarButton.setBackgroundColor(Color.parseColor("#2196f3"));
         //
         connectarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,28 +52,41 @@ public class MainActivity extends AppCompatActivity {
                     validateIPAddress(IP);
                     //Toast.makeText(v.getContext(), "La dirección IP es válida: " + IP, Toast.LENGTH_SHORT).show();
                     Data.setIP(IP);
+                    connectarButton.setText("Connectant...");
+                    connectarButton.setEnabled(false);
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                Socket socket = new Socket();
-                                socket.connect(new InetSocketAddress(Data.getIP(), Data.getPort()), 1000); // Timeout de 1 segundo
-                                Thread.sleep(2000);
 
+                            try {
+
+                                Socket socket = new Socket();
+                                socket.connect(new InetSocketAddress(Data.getIP(), Data.getPort()), 2000); // Timeout de 1 segundo
+
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(intent);
                                 // Si necesitas realizar alguna operación con la respuesta del socket, hazlo aquí
 
                             } catch (IOException e) {
-
-                            } catch (InterruptedException e) {
-                                // Manejo de InterruptedException
-                                Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(v.getContext(), "Error: servidor no trobat", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
+
                         }
                     }).start();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            connectarButton.setEnabled(true);
+                            connectarButton.setText("Connectar");
+                        }
+                    }, 1000); // 3000 milisegundos = 3 segundos
 
-
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
                 } catch (IllegalArgumentException ex) {
                     Toast.makeText(v.getContext(), "Error: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
                 }

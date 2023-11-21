@@ -5,6 +5,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,10 +91,10 @@ public class MissageHistoryActivity  extends AppCompatActivity {
         });
         // botó per afegir entrades a la ListView
         Button b = findViewById(R.id.atras);
+        b.setBackgroundColor(Color.parseColor("#2196f3"));
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Data.client.close();
                 Intent intent = new Intent(MissageHistoryActivity.this, EnviarActivity.class);
                 startActivity(intent);
 
@@ -112,7 +113,6 @@ public class MissageHistoryActivity  extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 JSONObject msgJSON=null;
-                Data.userMsgs.add(message);
                 try {
                     msgJSON = new JSONObject();
                     msgJSON.put("type", "broadcast");
@@ -131,6 +131,8 @@ public class MissageHistoryActivity  extends AppCompatActivity {
                     Data.client.send(msgJSON.toString());
                 }catch (Exception e){
                     Toast.makeText(MissageHistoryActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
+                    Data.lostConnection=new Intent(MissageHistoryActivity.this, MainActivity.class);
+                    startActivity(Data.lostConnection);
                 }
 
                 Toast.makeText(MissageHistoryActivity.this, "Enviat", Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import static com.example.crazydisplay.ImageActivity.mThumbIds;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Handler;
 import android.util.Base64;
 import android.content.Intent;
@@ -45,6 +46,7 @@ public class ImageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_enviar);
         Atras=findViewById(R.id.Atras);
+        Atras.setBackgroundColor(Color.parseColor("#2196f3"));
         GridView gridView = (GridView) findViewById(R.id.galleryGridView);
         gridView.setAdapter(new ImageAdapter(this));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,6 +86,8 @@ public class ImageActivity extends AppCompatActivity {
                     }, 4000); // 3000 milisegundos = 3 segundos
                 }catch (Exception e){
                     Toast.makeText(ImageActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
+                    Data.lostConnection=new Intent(ImageActivity.this, MainActivity.class);
+                    startActivity(Data.lostConnection);
                 }
 
 
@@ -162,7 +166,7 @@ public class ImageActivity extends AppCompatActivity {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(300, 300));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(10, 10, 10, 10);
         } else {
             imageView = (ImageView) convertView;
         }

@@ -3,6 +3,7 @@ import static com.example.crazydisplay.Data.MessageHistory;
 import static com.example.crazydisplay.Data.clients;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextText);
         editTextPassword = findViewById(R.id.editTextTextPassword);
         buttonLogin = findViewById(R.id.button);
+        buttonLogin.setBackgroundColor(Color.parseColor("#2196f3"));
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,6 +68,15 @@ public class LoginActivity extends AppCompatActivity {
                 String type = data.getString("type");
 
                 switch (type) {
+                    case "no":
+                        LoginActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                editTextUsername.setText("");
+                                editTextPassword.setText("");
+                                Toast.makeText(LoginActivity.this, "Comprova el usuari pls", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        break;
                     case "ok":
                         Intent intent = new Intent(LoginActivity.this, EnviarActivity.class);
                         startActivity(intent);
@@ -96,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     msgJSON = new JSONObject();
                     msgJSON.put("type", "registro");
                     msgJSON.put("user", username);
+                    msgJSON.put("from", "Android");
                     msgJSON.put("password", password);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -104,10 +116,12 @@ public class LoginActivity extends AppCompatActivity {
                     Data.client.send(msgJSON.toString());
                 }catch (Exception e){
                     Toast.makeText(LoginActivity.this, "Error: No s'ha pogut connectar amb el servidor", Toast.LENGTH_SHORT).show();
+                    Data.lostConnection=new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(Data.lostConnection);
                 }
 
 
-                buttonLogin.setText("Connectant...");
+                buttonLogin.setText("Validant...");
                 isButtonClickable = false;
                 buttonLogin.setEnabled(false);
 
@@ -119,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         buttonLogin.setEnabled(true);
                         buttonLogin.setText("Connectar");
                     }
-                }, 3000); // 3000 milisegundos = 3 segundos
+                }, 1000); // 3000 milisegundos = 3 segundos
 
             }
         });

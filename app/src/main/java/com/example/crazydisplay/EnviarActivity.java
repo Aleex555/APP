@@ -2,6 +2,7 @@ package com.example.crazydisplay;
 
 import static com.example.crazydisplay.Data.MessageHistory;
 import static com.example.crazydisplay.Data.clients;
+import static com.example.crazydisplay.Data.lostConnection;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,26 +41,23 @@ import java.util.Map;
 public class EnviarActivity extends AppCompatActivity {
 
 
-    private ConnectionStatus connectionStatus = ConnectionStatus.DISCONNECTED;
-    public enum ConnectionStatus {
-        DISCONNECTED, DISCONNECTING, CONNECTING, CONNECTED
-    }
-
-    private Button enviarButton,historialMissatges,enviarImagen;
+    private Button enviarButton,historialMissatges,enviarImagen,disconnect;
     private EditText inputMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Data.MessageHistory=transformarStringAHashMap(readArchivetoString("messageHistory.txt"));
         setContentView(R.layout.activity_enviar);
         //
         enviarButton = findViewById(R.id.enviarButton);
-        enviarButton.setBackgroundColor(Color.parseColor("#20b16c"));
+        disconnect = findViewById(R.id.disconnect);
+        enviarButton.setBackgroundColor(Color.parseColor("#2196f3"));
         inputMessage= findViewById(R.id.inputMessage);
-
+        disconnect.setBackgroundColor(Color.parseColor("#FF0000"));
         historialMissatges=findViewById(R.id.historialMissatges);
-        historialMissatges.setBackgroundColor(Color.parseColor("#ADD8E6"));
+        historialMissatges.setBackgroundColor(Color.parseColor("#2196f3"));
         enviarImagen=findViewById(R.id.enviarImagen);
-        enviarImagen.setBackgroundColor(Color.parseColor("#FFB6C1"));
+        enviarImagen.setBackgroundColor(Color.parseColor("#2196f3"));
         //
 
         // Ensure network operations are done on a separate thread to avoid NetworkOnMainThreadException
@@ -80,7 +78,6 @@ public class EnviarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message =inputMessage.getText().toString();
                 JSONObject msgJSON=null;
-                Data.userMsgs.add(message);
                 try {
                     msgJSON = new JSONObject();
                     msgJSON.put("type", "broadcast");
@@ -99,13 +96,23 @@ public class EnviarActivity extends AppCompatActivity {
                     Data.client.send(msgJSON.toString());
                 }catch (Exception e){
                     Toast.makeText(EnviarActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
+                    Data.lostConnection=new Intent(EnviarActivity.this, MainActivity.class);
+                    startActivity(Data.lostConnection);
                 }
                 inputMessage.setText("");
                 Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
         //
-
+        disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Desconnectat", Toast.LENGTH_SHORT).show();
+                Data.client.close();
+                 lostConnection = new Intent(EnviarActivity.this, MainActivity.class);
+                startActivity(lostConnection);
+            }
+        });
         //
         historialMissatges.setOnClickListener(new View.OnClickListener() {
             @Override

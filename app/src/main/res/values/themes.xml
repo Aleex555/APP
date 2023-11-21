@@ -4,6 +4,12 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
-    <style name="Theme.CrazyDisplay" parent="Base.Theme.CrazyDisplay" />
+    <style name="Theme.CrazyDisplay" parent="Base.Theme.CrazyDisplay">
+        <!-- Other items can be here -->
+        <item name="colorPrimaryDark">@color/colorStatusBar</item>
+        <!-- If you are using Material Design Components -->
+        <item name="colorPrimaryVariant">@color/colorStatusBar</item>
+        <!-- or for some newer versions -->
+        <item name="colorSurfaceVariant">@color/colorStatusBar</item>
+    </style>
 </resources>

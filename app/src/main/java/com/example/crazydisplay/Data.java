@@ -1,6 +1,7 @@
 package com.example.crazydisplay;
 
 import android.content.Context;
+import android.content.Intent;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,11 +15,11 @@ import java.util.Map;
 
 public class Data {
     static ArrayList<String> clients=new ArrayList<String>() ;
-    static ArrayList<String> userMsgs=new ArrayList<String>() ;
     private static int port=8888;
     private static String IP=null;
     static  HashMap<String, String> MessageHistory = new HashMap<>();
     static  AppSocketsClient client;
+    static Intent lostConnection;
 
 
 
