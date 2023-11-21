@@ -1,0 +1,158 @@
+[
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_credencials_check.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\credencials_check.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "com.example.crazydisplay.app-merged_res-4:/drawable_duck.jpg.flat",
+        "source": "com.example.crazydisplay.app-main-6:/drawable/duck.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_street.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\street.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-hdpi_icon.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-hdpi\\icon.jpg"
+    },
+    {
+        "merged": "com.example.crazydisplay.app-merged_res-4:/drawable_doly.jpg.flat",
+        "source": "com.example.crazydisplay.app-main-6:/drawable/doly.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_doly.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\doly.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_history_message.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\history_message.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_flowers.png.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\flowers.png"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_activity_enviar.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\activity_enviar.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_list_item.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\list_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_gato.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\gato.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_nepe.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\nepe.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_image_enviar.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\image_enviar.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_duck.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\duck.jpg"
+    },
+    {
+        "merged": "com.example.crazydisplay.app-merged_res-4:/drawable_gato.jpg.flat",
+        "source": "com.example.crazydisplay.app-main-6:/drawable/gato.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_ipimage.png.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\ipimage.png"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_flowers.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\flowers.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\layout_dialog_loading.xml.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\layout\\dialog_loading.xml"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_abism.jpeg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\abism.jpeg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_login.png.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\login.png"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_sample_image.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\sample_image.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\drawable_pinguins.jpg.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\drawable\\pinguins.jpg"
+    },
+    {
+        "merged": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-merged_res-4:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\compo\\.gradle\\daemon\\8.0\\com.example.crazydisplay.app-main-6:\\mipmap-hdpi\\ic_launcher_round.webp"
+    }
+]
