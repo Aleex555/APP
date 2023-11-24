@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.function.Consumer;
 
 public class AppSocketsClient extends WebSocketClient {
+    private Consumer<Boolean> callBackOnClose;
     private Consumer<String> callBackOnMessage;
     public AppSocketsClient(URI serverUri,Consumer<String> onMessage) {
             super(serverUri);
@@ -25,9 +26,11 @@ public class AppSocketsClient extends WebSocketClient {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-
+        if (remote) {
+            // Notifica a la Activity que la conexión ha sido cerrada por el servidor
+            callBackOnClose.accept(true);
+        }
     }
-
     @Override
     public void onError(Exception ex) {
 

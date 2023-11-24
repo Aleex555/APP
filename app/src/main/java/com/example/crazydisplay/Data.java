@@ -3,6 +3,10 @@ package com.example.crazydisplay;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -14,13 +18,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Data {
-    static ArrayList<String> clients=new ArrayList<String>() ;
+    static HashMap<String, String> personesConectades;
+    static String id;
+    static String username;
+
     private static int port=8888;
     private static String IP=null;
     static  HashMap<String, String> MessageHistory = new HashMap<>();
     static  AppSocketsClient client;
     static Intent lostConnection;
-
 
 
 
@@ -54,3 +60,4 @@ public class Data {
         return sb.toString();
     }
 }
+

@@ -1,7 +1,11 @@
 package com.example.crazydisplay;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent);
+                                finish();
                                 // Si necesitas realizar alguna operación con la respuesta del socket, hazlo aquí
 
                             } catch (IOException e) {
@@ -93,6 +98,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Manejar la acción de retroceso aquí
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Estas segur que vols tancar?")
+                        .setCancelable(false)
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                               finish();
 
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 }

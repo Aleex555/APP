@@ -1,10 +1,10 @@
 package com.example.crazydisplay;
 
 import static com.example.crazydisplay.Data.MessageHistory;
-import static com.example.crazydisplay.Data.clients;
 import static com.example.crazydisplay.Data.lostConnection;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
@@ -36,7 +38,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class EnviarActivity extends AppCompatActivity {
 
@@ -62,18 +67,12 @@ public class EnviarActivity extends AppCompatActivity {
 
         // Ensure network operations are done on a separate thread to avoid NetworkOnMainThreadException
 
-        runOnUiThread(new Runnable() {
 
-            @Override
-            public void run() {
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                        EnviarActivity.this,
-                        android.R.layout.simple_list_item_1,
-                        clients);
-            }
-        });
         //
+
         enviarButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 String message =inputMessage.getText().toString();
@@ -82,6 +81,7 @@ public class EnviarActivity extends AppCompatActivity {
                     msgJSON = new JSONObject();
                     msgJSON.put("type", "broadcast");
                     msgJSON.put("from", "Android");
+                    msgJSON.put("usuario", Data.username);
                     msgJSON.put("value", message);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -100,7 +100,6 @@ public class EnviarActivity extends AppCompatActivity {
                     startActivity(Data.lostConnection);
                 }
                 inputMessage.setText("");
-                Toast.makeText(v.getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
         //
@@ -129,7 +128,54 @@ public class EnviarActivity extends AppCompatActivity {
                 startActivity(saltarEnviarImagen);
             }
         });
+
         //
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Manejar la acción de retroceso aquí
+                new AlertDialog.Builder(EnviarActivity.this)
+                        .setMessage("Tornaràs a la pantalla principal")
+                        .setCancelable(false)
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(EnviarActivity.this, "Desconnectat", Toast.LENGTH_SHORT).show();
+                                Data.client.close();
+                                lostConnection = new Intent(EnviarActivity.this, MainActivity.class);
+                                startActivity(lostConnection);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
+
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Infla el menú; esto añade ítems al action bar si está presente.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Maneja los clics en los ítems del action bar aquí.
+        int id = item.getItemId();
+
+        if (id == R.id.action_button) {
+            try {
+                showDialog();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
     private void guardarDatos(String name, String data) {
         String dataSave= data;
@@ -191,5 +237,58 @@ public class EnviarActivity extends AppCompatActivity {
         }
 
         return content.toString();
+
+
+    }
+
+    private void showDialog() throws InterruptedException {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        JSONObject msgJSON=null;
+        try {
+            msgJSON = new JSONObject();
+            msgJSON.put("type", "list");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        //
+        Data.client.send(msgJSON.toString());
+        Thread.sleep(50);
+        // Crear ListView y Adaptador
+        ListView listView = new ListView(this);
+        List<String> dataList = new ArrayList<>();
+
+        for (Map.Entry<String, String> entry : Data.personesConectades.entrySet()) {
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dataList);
+        listView.setAdapter(adapter);
+
+        // Configurar el AlertDialog con el ListView
+        builder.setTitle("Persones Connectades")
+                .setView(listView)
+                .setPositiveButton("OK", null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
+
+

@@ -22,7 +22,7 @@
         android:layout_width="201dp"
         android:layout_height="60dp"
         android:text="Connectar"
-        android:textSize="24dp"
+        android:textSize="20dp"
         app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

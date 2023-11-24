@@ -1,20 +1,24 @@
 package com.example.crazydisplay;
-import static com.example.crazydisplay.Data.MessageHistory;
-import static com.example.crazydisplay.Data.clients;
+import static com.example.crazydisplay.Data.client;
+import static com.example.crazydisplay.Data.lostConnection;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,9 +26,11 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-
     private boolean isButtonClickable = true;
     private JSONObject msgJSON=null;
     private EditText editTextUsername;
@@ -41,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextTextPassword);
         buttonLogin = findViewById(R.id.button);
         buttonLogin.setBackgroundColor(Color.parseColor("#2196f3"));
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -62,12 +69,54 @@ public class LoginActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             }
-
             private void onMessage(String message) throws JSONException {
                 JSONObject data = new JSONObject(message);
                 String type = data.getString("type");
 
                 switch (type) {
+                    case "disconnected":
+                        LoginActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha desconnectat desde "+data.getString("from")+" \n"+data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        });
+
+
+                        break;
+                    case "id":
+                        Data.id=data.getString("value");
+                    case "connected":
+
+                        if (!(data.getString("id").equals(Data.id))){
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha connectat desde "+data.getString("from")+" \n"+data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            });
+                        }
+
+                        break;
+                    case "infomensaje":
+                        if (data.getString("id").equals(Data.id)){
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" desde "+data.getString("from")+" ha enviat un missatge", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            });
+                        }
+                        break;
                     case "no":
                         LoginActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
@@ -78,17 +127,13 @@ public class LoginActivity extends AppCompatActivity {
                         });
                         break;
                     case "ok":
+                        Data.username=editTextUsername.getText().toString();
                         Intent intent = new Intent(LoginActivity.this, EnviarActivity.class);
                         startActivity(intent);
                         break;
                     case "list":
-                        ArrayList<String> list = new ArrayList<>();
-                        String jsonlist =data.getString("list");
-                        JSONArray jsonArray = new JSONArray(jsonlist);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            list.add(jsonArray.getString(i));
-                        }
-                        clients=list;
+                        Data.personesConectades= convertJsonToHashMap(data.getString("list"));
+
                         break;
                     default:
                         break;
@@ -137,5 +182,27 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+               client.close();
+                finish();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
+    }
+
+    public static HashMap<String, String> convertJsonToHashMap(String jsonString) throws JSONException {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        HashMap<String, String> map = new HashMap<>();
+
+        Iterator<String> keys = jsonObject.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
+            map.put(key, jsonObject.getString(key));
+        }
+
+        return map;
     }
 }
