@@ -78,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                         LoginActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 try {
-                                    Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha desconnectat desde "+data.getString("from")+" \n"+data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha desconnectat desde "+data.getString("from"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -95,7 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
                                     try {
-                                        Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha connectat desde "+data.getString("from")+" \n"+data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "El usuari "+data.getString("usuario")+" s'ha connectat desde "+data.getString("from"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, data.getString("conexiones")+" conexions restants", Toast.LENGTH_SHORT).show();
+
                                     } catch (JSONException e) {
                                         throw new RuntimeException(e);
                                     }
