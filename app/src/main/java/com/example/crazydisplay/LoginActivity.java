@@ -133,6 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                         Data.username=editTextUsername.getText().toString();
                         Intent intent = new Intent(LoginActivity.this, EnviarActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                     case "list":
                         Data.personesConectades= convertJsonToHashMap(data.getString("list"));
@@ -166,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Error: No s'ha pogut connectar amb el servidor", Toast.LENGTH_SHORT).show();
                     Data.lostConnection=new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(Data.lostConnection);
+                    finish();
                 }
 
 

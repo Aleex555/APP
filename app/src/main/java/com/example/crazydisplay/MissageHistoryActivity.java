@@ -95,8 +95,7 @@ public class MissageHistoryActivity  extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MissageHistoryActivity.this, EnviarActivity.class);
-                startActivity(intent);
+                finish();
 
             }
         });
@@ -133,6 +132,7 @@ public class MissageHistoryActivity  extends AppCompatActivity {
                     Toast.makeText(MissageHistoryActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
                     Data.lostConnection=new Intent(MissageHistoryActivity.this, MainActivity.class);
                     startActivity(Data.lostConnection);
+                    finish();
                 }
 
                 Toast.makeText(MissageHistoryActivity.this, "Enviat", Toast.LENGTH_SHORT).show();

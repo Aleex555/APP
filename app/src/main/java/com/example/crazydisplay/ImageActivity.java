@@ -88,6 +88,7 @@ public class ImageActivity extends AppCompatActivity {
                     Toast.makeText(ImageActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
                     Data.lostConnection=new Intent(ImageActivity.this, MainActivity.class);
                     startActivity(Data.lostConnection);
+                    finish();
                 }
 
 
@@ -98,8 +99,7 @@ public class ImageActivity extends AppCompatActivity {
         Atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ImageActivity.this, EnviarActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }

@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(intent);
-                                finish();
                                 // Si necesitas realizar alguna operación con la respuesta del socket, hazlo aquí
 
                             } catch (IOException e) {

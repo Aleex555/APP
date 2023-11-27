@@ -98,6 +98,7 @@ public class EnviarActivity extends AppCompatActivity {
                     Toast.makeText(EnviarActivity.this, "Ha passat alguna cosa al servidor", Toast.LENGTH_SHORT).show();
                     Data.lostConnection=new Intent(EnviarActivity.this, MainActivity.class);
                     startActivity(Data.lostConnection);
+                    finish();
                 }
                 inputMessage.setText("");
             }
@@ -108,8 +109,7 @@ public class EnviarActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Desconnectat", Toast.LENGTH_SHORT).show();
                 Data.client.close();
-                 lostConnection = new Intent(EnviarActivity.this, MainActivity.class);
-                startActivity(lostConnection);
+                finish();
             }
         });
         //
@@ -142,8 +142,7 @@ public class EnviarActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 Toast.makeText(EnviarActivity.this, "Desconnectat", Toast.LENGTH_SHORT).show();
                                 Data.client.close();
-                                lostConnection = new Intent(EnviarActivity.this, MainActivity.class);
-                                startActivity(lostConnection);
+                                finish();
                             }
                         })
                         .setNegativeButton("No", null)
@@ -258,23 +257,6 @@ public class EnviarActivity extends AppCompatActivity {
         List<String> dataList = new ArrayList<>();
 
         for (Map.Entry<String, String> entry : Data.personesConectades.entrySet()) {
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
-            dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
             dataList.add("  "+entry.getKey() + " desde " + entry.getValue());
         }
 
