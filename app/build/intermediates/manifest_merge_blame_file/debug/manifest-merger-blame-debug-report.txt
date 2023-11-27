@@ -30,66 +30,66 @@
 19-->[androidx.core:core:1.9.0] C:\Users\compo\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 20
 21    <application
-21-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:8:5-39:19
+21-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:8:5-40:19
 22        android:allowBackup="true"
-22-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:9:9-35
+22-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:10:9-35
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.9.0] C:\Users\compo\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 24        android:dataExtractionRules="@xml/data_extraction_rules"
-24-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:10:9-65
+24-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:11:9-65
 25        android:debuggable="true"
 26        android:extractNativeLibs="false"
 27        android:fullBackupContent="@xml/backup_rules"
-27-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:11:9-54
+27-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:12:9-54
 28        android:icon="@mipmap/icon"
-28-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:12:9-36
+28-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:13:9-36
 29        android:label="@string/app_name"
-29-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:13:9-41
+29-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:14:9-41
 30        android:roundIcon="@mipmap/icon"
-30-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:14:9-41
+30-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:15:9-41
 31        android:supportsRtl="true"
-31-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:15:9-35
+31-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:16:9-35
 32        android:testOnly="true"
 33        android:theme="@style/Theme.CrazyDisplay" >
-33-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:16:9-50
+33-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:17:9-50
 34        <activity
-34-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:18:9-26:20
+34-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:19:9-27:20
 35            android:name="com.example.crazydisplay.MainActivity"
-35-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:19:13-41
+35-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:20:13-41
 36            android:exported="true" >
-36-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:20:13-36
+36-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:21:13-36
 37            <intent-filter>
-37-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:21:13-25:29
+37-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:22:13-26:29
 38                <action android:name="android.intent.action.MAIN" />
-38-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:22:17-69
-38-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:22:25-66
+38-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:23:17-69
+38-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:23:25-66
 39
 40                <category android:name="android.intent.category.LAUNCHER" />
-40-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:24:17-77
-40-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:24:27-74
+40-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:25:17-77
+40-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:25:27-74
 41            </intent-filter>
 42        </activity>
 43        <activity android:name="com.example.crazydisplay.EnviarActivity" >
-43-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:27:9-29:20
-43-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:27:19-49
+43-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:28:9-30:20
+43-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:28:19-49
 44
 45            <!-- Puedes incluir otras configuraciones aquí -->
 46        </activity>
 47        <activity android:name="com.example.crazydisplay.MissageHistoryActivity" >
-47-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:30:9-32:20
-47-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:30:19-57
+47-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:31:9-33:20
+47-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:31:19-57
 48
 49            <!-- Puedes incluir otras configuraciones aquí -->
 50        </activity>
 51        <activity android:name="com.example.crazydisplay.LoginActivity" >
-51-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:33:9-35:20
-51-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:33:19-48
+51-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:34:9-36:20
+51-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:34:19-48
 52
 53            <!-- Puedes incluir otras configuraciones aquí -->
 54        </activity>
 55        <activity android:name="com.example.crazydisplay.ImageActivity" >
-55-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:36:9-38:20
-55-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:36:19-48
+55-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:37:9-39:20
+55-->A:\AMS2\Proyecto\APP\app\src\main\AndroidManifest.xml:37:19-48
 56
 57            <!-- Puedes incluir otras configuraciones aquí -->
 58        </activity>

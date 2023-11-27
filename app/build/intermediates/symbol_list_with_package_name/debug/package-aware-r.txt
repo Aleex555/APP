@@ -1366,6 +1366,7 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
+color colorStatusBar
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
 color design_dark_default_color_background
@@ -2969,6 +2970,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable icon_contact
 drawable ipimage
 drawable login
 drawable m3_appbar_background
@@ -3107,6 +3109,7 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
+id action_button
 id action_container
 id action_context_bar
 id action_divider
@@ -3209,6 +3212,7 @@ id disableHome
 id disableIntraAutoTransition
 id disablePostScroll
 id disableScroll
+id disconnect
 id disjoint
 id dragAnticlockwise
 id dragClockwise
@@ -3517,6 +3521,7 @@ id textView
 id textView2
 id textView3
 id textView4
+id textView5
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3763,6 +3768,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+menu main_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 mipmap icon

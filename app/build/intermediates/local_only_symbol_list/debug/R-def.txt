@@ -1,21 +1,25 @@
 R_DEF: Internal format may change without notice
 local
 color black
+color colorStatusBar
 color white
 drawable doly
 drawable duck
 drawable gato
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable icon_contact
 drawable ipimage
 drawable login
 drawable pinguins
 drawable sample_image
 id Atras
+id action_button
 id atras
 id button
 id conectButton
 id constraintLayout
+id disconnect
 id editTextText
 id editTextTextPassword
 id enviarButton
@@ -34,6 +38,7 @@ id textView
 id textView2
 id textView3
 id textView4
+id textView5
 layout activity_enviar
 layout activity_main
 layout credencials_check
@@ -41,6 +46,7 @@ layout dialog_loading
 layout history_message
 layout image_enviar
 layout list_item
+menu main_menu
 mipmap ic_launcher
 mipmap ic_launcher_round
 mipmap icon
