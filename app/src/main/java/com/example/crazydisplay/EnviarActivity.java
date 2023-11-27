@@ -251,7 +251,7 @@ public class EnviarActivity extends AppCompatActivity {
         }
         //
         Data.client.send(msgJSON.toString());
-        Thread.sleep(50);
+        Thread.sleep(150);
         // Crear ListView y Adaptador
         ListView listView = new ListView(this);
         List<String> dataList = new ArrayList<>();
