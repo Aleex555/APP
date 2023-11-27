@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void run() {
                                 editTextUsername.setText("");
                                 editTextPassword.setText("");
-                                Toast.makeText(LoginActivity.this, "Comprova el usuari pls", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Comprova el nom o contrasenya", Toast.LENGTH_LONG).show();
                             }
                         });
                         break;
